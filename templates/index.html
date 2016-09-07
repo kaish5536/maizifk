@@ -1,36 +1,13 @@
-<!docutype html>
-<html>
-<head>
-	<meta charset='utf-8'>
-	<title>jinja2</title>
-	
-</head>
-
-<body>
-	
-	
-{% set links=[
-	('Home',url_for('.index')),
-	('About',url_for('.about')),
-	('Services',url_for('.services')),
-	('Projects',url_for('.projects')),
-] %}
-
-<nav>
-	{% for label,href in links %}
-		{% if not loop.first %}|{% endif %}
-		{% if href is current_link %}
-		
-			<a href="#">{{ label }}</a>
-		{% else %}
-			<a href="{{ href }}">{{ label }}</a>
-		{% endif %}
-		
-	
-	{% endfor %}
-	
-	
-	
-	
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+	.important { color: #336699;}
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Index</h1>
+  <p class="important">
+	Welcome on my awesome homepage.
+{% endblock %}
