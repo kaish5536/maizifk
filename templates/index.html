@@ -2,13 +2,35 @@
 <html>
 <head>
 	<meta charset='utf-8'>
-	<title>{{ title|md|safe }}</title>
+	<title>jinja2</title>
 	
 </head>
 
 <body>
-	{{ title|safe}}
-	{{ body|md|safe}}
+	
+	
+{% set links=[
+	('Home',url_for('.index')),
+	('About',url_for('.about')),
+	('Services',url_for('.services')),
+	('Projects',url_for('.projects')),
+] %}
 
+<nav>
+	{% for label,href in links %}
+		{% if not loop.first %}|{% endif %}
+		{% if href is current_link %}
+		
+			<a href="#">{{ label }}</a>
+		{% else %}
+			<a href="{{ href }}">{{ label }}</a>
+		{% endif %}
+		
+	
+	{% endfor %}
+	
+	
+	
+	
 </body>
 </html>

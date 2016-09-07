@@ -58,6 +58,11 @@ def upload():
 def page_not_found(error):
 	return render_template('404.html'), 404
 	
+@app.template_test("current_link")
+def is_current_link(link):
+	return link==request.path
+	
+	
 @manager.command
 def dev():
 	from livereload import Server
@@ -65,9 +70,6 @@ def dev():
 	live_server.watch('**/*.*')
 	live_server.serve(open_url=True)
 	
-
-
-
 
 if __name__=='__main__':
 	app.run(debug=True)
