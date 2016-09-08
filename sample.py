@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from flask import Flask,render_template,request,redirect,url_for,make_response,abort
+from flask import Flask,render_template,request,flash,redirect,url_for,make_response,abort
 from werkzeug.routing import BaseConverter
 from werkzeug import secure_filename
 from flask_script import Manager
@@ -14,6 +14,7 @@ nav=Nav()
 app = Flask(__name__)
 Bootstrap(app)
 
+app.config.from_pyfile('config')
 manager=Manager(app)
 
 nav.register_element('top',Navbar(u'Flask入门',
@@ -24,7 +25,7 @@ nav.register_element('top',Navbar(u'Flask入门',
 								   ))
 
 nav.init_app(app)
-								   
+   
 @app.route('/')
 def index():
 	response=make_response(render_template('index.html',title='Welcome'))
@@ -46,14 +47,10 @@ def projects():
 	
 @app.route('/login',methods=['GET','POST'])
 def login():
-	if request.method=='POST':
-		#post情况下，获取用户名和密码
-		username=request.form['username']
-		password=request.form['password']
-	else: 
-		#get 的情况下
-		username=request.args['username']
-	return render_template('login.html',method=request.method)
+	from forms import LoginForm
+	form=LoginForm()
+	flash(u'登录成功')
+	return render_template('login.html',title=u'登录',form=form)
 
 #上传文件
 @app.route('/upload',methods=['GET','POST'])
@@ -86,6 +83,7 @@ def dev():
 	
 
 if __name__=='__main__':
+	dev  #自动更新
 	app.run(debug=True)
 	
 	
