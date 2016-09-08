@@ -1,13 +1,16 @@
-{% extends "base.html" %}
-{% block title %}Index{% endblock %}
-{% block head %}
-  {{ super() }}
-  <style type="text/css">
-	.important { color: #336699;}
-  </style>
-{% endblock %}
+{% extends 'base.html' %}
+{% import '_marcos.html' as ui %}
+
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
-	Welcome on my awesome homepage.
-{% endblock %}
+	<div class="page-header">
+		<div class="container">
+			<h1>{{ self.title() }}</h1>
+		</div>
+	</div>
+	<div class="container">
+		{{ ui.input('username') }}
+		{{ ui.input('password',type='password') }}
+	</div>
+{% endblock content %}

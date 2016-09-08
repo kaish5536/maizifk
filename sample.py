@@ -1,21 +1,35 @@
+# -*- coding:utf-8 -*-
 from flask import Flask,render_template,request,redirect,url_for,make_response,abort
 from werkzeug.routing import BaseConverter
 from werkzeug import secure_filename
-from flask.ext.script import Manager
+from flask_script import Manager
+from flask_bootstrap import Bootstrap
+from flask_nav import Nav
+from flask_nav.elements import *
 
 from os import path
 
-
+nav=Nav()
 
 app = Flask(__name__)
+Bootstrap(app)
 
 manager=Manager(app)
 
+nav.register_element('top',Navbar(u'Flask入门',
+								   View(u'主页','index'),
+								   View(u'关于','about'),
+								   View(u'服务','services'),
+								   View(u'项目','projects')
+								   ))
+
+nav.init_app(app)
+								   
 @app.route('/')
 def index():
 	response=make_response(render_template('index.html',title='Welcome'))
-	response.set_cookie('username','')
-	return render_template('index.html',title='Welcome')
+	response.set_cookie('username','te')
+	return response
 	
 @app.route('/services')
 def services():
@@ -73,7 +87,7 @@ def dev():
 
 if __name__=='__main__':
 	app.run(debug=True)
-	manager.run()
+	
 	
 
 

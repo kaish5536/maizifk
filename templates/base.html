@@ -1,0 +1,19 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block head %}
+	{{ super() }}
+	{% include ['includes/_head.html','includes/_metas.html'] %}
+{% endblock %}
+{% block navbar %}
+	{{ nav.top.render() }}
+{% endblock %}
+ 
+{% block content %}
+	<header>{% block header %}{% endblock %}</header>
+{% endblock %}
+{% block footer %}
+	<footer>
+		Copyright 2016 by <a href="kaish.cn"
+	</footer>
+{% endblock %}
